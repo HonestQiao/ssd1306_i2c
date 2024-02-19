@@ -29,7 +29,7 @@ All text above, and the splash screen below must be included in any redistributi
 
 #include "ssd1306_i2c.h"
 
-#include <wiringPiI2C.h>
+#include "wiringPiI2C.h"
 
 #include "oled_fonts.h"
 
@@ -44,7 +44,7 @@ int cursor_y = 0;
 int cursor_x = 0;
 
 // the memory buffer for the LCD. Displays Adafruit logo
-int buffer[SSD1306_LCDWIDTH * SSD1306_LCDHEIGHT / 8] = {
+uint8_t buffer[SSD1306_LCDWIDTH * SSD1306_LCDHEIGHT / 8] = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00,
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -441,7 +441,7 @@ void ssd1306_dim(unsigned int dim)
 void ssd1306_clearDisplay(void)
 {
 	memset(buffer, 0,
-	       (SSD1306_LCDWIDTH * SSD1306_LCDHEIGHT / 8) * sizeof(int));
+	       (SSD1306_LCDWIDTH * SSD1306_LCDHEIGHT / 8) * sizeof(buffer[0]));
 	cursor_y = 0;
 	cursor_x = 0;
 }
